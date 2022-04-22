@@ -3,16 +3,34 @@ import './App.css';
 import MyComponent from "./Component";
 import Counter from "./Counter";
 import Say from "./Say";
-import EventPractice from "./EventPractice";
-import EPWithFunctionComponent from "./EPWithFunctionComponent";
-import ValidationSample from "./ValidationSample";
+import EventPractice from "./eventPractice/EventPractice";
+import EPWithFunctionComponent from "./eventPractice/EPWithFunctionComponent";
+import ValidationSample from "./validataion/ValidationSample";
 import ScrollBox from "./ScrollBox";
-import IterationSample1 from "./IterationSample1";
-import IterationSample2 from "./IterationSample2";
+import IterationSample1 from "./iteration/IterationSample1";
+import IterationSample2 from "./iteration/IterationSample2";
+import LifeCycleSample from "./LifeCycleSample";
+import ErrorBoundary from "./ErrorBoundary";
+
+//random color 생성
+function getRandomColor() {
+    return '#' + Math.floor(Math.random() * 16777215).toString(16);
+}
 
 class App extends Component {
+    state = {
+        color: '#000000'
+    }
+
+    handleClick = () => {
+        this.setState({
+            color: getRandomColor()
+        });
+    }
+
     render() {
         const name = 'react';
+
         return (
             <div>
                 <MyComponent name={'방기진'} favoriteNumber={7}>율&연</MyComponent>
@@ -28,6 +46,10 @@ class App extends Component {
                 </button>
                 <IterationSample1/>
                 <IterationSample2/>
+                <button onClick={this.handleClick}>랜덤 색상</button>
+                <ErrorBoundary>
+                    <LifeCycleSample color={this.state.color}/>
+                </ErrorBoundary>
             </div>
         )
     };
